@@ -13,7 +13,7 @@
 
 unsigned int hde64_disasm(const void *code, hde64s *hs)
 {
-    uint8_t x, c, *p = (uint8_t *)code, cflags, opcode, pref = 0;
+    uint8_t x = 0, c = 0, *p = (uint8_t *)code, cflags, opcode, pref = 0;
     uint8_t *ht = hde64_table, m_mod, m_reg, m_rm, disp_size = 0;
     uint8_t op64 = 0;
 
@@ -58,7 +58,8 @@ unsigned int hde64_disasm(const void *code, hde64s *hs)
 
     if ((c & 0xf0) == 0x40) {
         hs->flags |= F_PREFIX_REX;
-        if ((hs->rex_w = (c & 0xf) >> 3) && (*p & 0xf8) == 0xb8)
+        hs->rex_w = (c & 0xf) >> 3;
+        if (hs->rex_w && (*p & 0xf8) == 0xb8)
             op64++;
         hs->rex_r = (c & 7) >> 2;
         hs->rex_x = (c & 3) >> 1;
