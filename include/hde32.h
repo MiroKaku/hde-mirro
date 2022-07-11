@@ -10,7 +10,7 @@
 #ifndef _HDE32_H_
 #define _HDE32_H_
 
-#include <stdint.h>
+#include "kstdint.h"
 
 #define F_MODRM         0x00000001
 #define F_SIB           0x00000002
